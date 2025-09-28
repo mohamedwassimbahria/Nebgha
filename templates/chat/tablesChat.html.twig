@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat Messages{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Chat Messages</h1>
+        <div class="chat-container">
+            {% for message in chat %}
+                <div class="chat-message {% if message.idProfesseur %}message-professor{% else %}message-user{% endif %}">
+                    <div class="message-content">
+                        {{ message.content }}
+                    </div>
+                    <div class="message-meta">
+                        <small>{{ message.createdAt|date('Y-m-d H:i:s') }}</small>
+                        {% if message.idProfesseur %}
+                            <span class="professor-name">{{ message.idProfesseur.name ?? 'Professor' }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .chat-message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .message-professor {
+            background-color: #e3f2fd;
+            margin-left: 20%;
+        }
+        .message-user {
+            background-color: #f5f5f5;
+            margin-right: 20%;
+        }
+        .message-meta {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .professor-name {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    </style>
+{% endblock %}

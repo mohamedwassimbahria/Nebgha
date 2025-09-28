@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% import 'back/macros.html.twig' as macros %}
+
+{% block body %}
+<h1>Recherche des événements</h1>
+<form method="get" action="{{ path('app_evenement_recherche') }}">
+    <div>
+        <label for="type">Type :</label>
+        <input type="text" id="type" name="type" placeholder="Exemple : Séminaire">
+    </div>
+    <div>
+        <label for="dateDebut">Date Début :</label>
+        <input type="date" id="dateDebut" name="dateDebut">
+    </div>
+    <div>
+        <label for="dateFin">Date Fin :</label>
+        <input type="date" id="dateFin" name="dateFin">
+    </div>
+    <div>
+        <label for="tags">Tags :</label>
+        <input type="text" id="tags" name="tags" placeholder="Exemple : #tech,#formation">
+    </div>
+    <button type="submit">Rechercher</button>
+</form>
+
+<h2>Résultats</h2>
+<ul>
+    {% for evenement in evenements %}
+        <li>
+            <strong>{{ evenement.titre }}</strong> - {{ evenement.type }}
+            <br>Début : {{ evenement.dateDebut|date('Y-m-d') }}
+            <br>Lieu : {{ evenement.lieu }}
+        </li>
+    {% else %}
+        <li>Aucun événement trouvé.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
